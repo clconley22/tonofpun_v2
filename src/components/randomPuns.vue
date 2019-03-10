@@ -1,7 +1,11 @@
 <template>
   <div class="hello">
      <h1>{{ status }}</h1>
-     <h2>{{ punchline }}</h2>
+     <sui-button @click="show = !show">Show me the answer</sui-button>
+     <h2 v-if="show"> {{ punchline }} </h2>
+     <div>
+       <sui-button @click="newPun"> Next pun</sui-button>
+     </div>
 
   </div>
 </template>
@@ -14,14 +18,15 @@ export default {
   data () {
     return {
       status: '',
-      punchline: ''
+      punchline: '',
+      show: false,
     }
   },
   created () {
-    this.loadQuote();
+    this.loadJoke();
   },
   methods: {
-    loadQuote() {
+    loadJoke() {
       this.status = 'Loading...';
       var vm = this;
       axios.get('https://official-joke-api.appspot.com/jokes/random')
@@ -33,6 +38,10 @@ export default {
         vm.status = 'An error occurred.' + error;
         vm.punchline = 'An error occurred.' + error;
       });
+    },
+    newPun() {
+      this.loadJoke()
+      return this.show = false;
     }
   }
 }
