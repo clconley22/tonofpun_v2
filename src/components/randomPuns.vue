@@ -1,12 +1,16 @@
 <template>
   <div class="hello">
-     <h1>{{ status }}</h1>
-     <sui-button @click="show = !show">Show me the answer</sui-button>
-     <h2 v-if="show"> {{ punchline }} </h2>
+     <h1>{{ pun }}</h1>
+     <!-- <sui-button @click="show = !show">Show me the answer</sui-button> -->
+     <!-- <h2 v-if="show"> {{ punchline }} </h2> -->
      <div>
-       <sui-button @click="newPun"> Next pun</sui-button>
+      <sui-button animated id="change" @click="newPun">
+        <sui-button-content visible>Next Pun</sui-button-content>
+          <sui-button-content hidden>
+          <sui-icon name="right arrow" />
+        </sui-button-content>
+      </sui-button>
      </div>
-
   </div>
 </template>
 
@@ -17,9 +21,9 @@ export default {
   name: 'randomPuns',
   data () {
     return {
-      status: '',
-      punchline: '',
+      pun: '',
       show: false,
+      myColor: '888888'
     }
   },
   created () {
@@ -27,40 +31,41 @@ export default {
   },
   methods: {
     loadJoke() {
-      this.status = 'Loading...';
+      this.pun = 'Loading...';
       var vm = this;
-      axios.get('https://official-joke-api.appspot.com/jokes/random')
+      axios.get('https://getpuns.herokuapp.com/api/random')
       .then(response => {
-        vm.status = response.data.setup;
-        vm.punchline = response.data.punchline;
+        vm.pun = response.data
       })
       .catch(error => {
-        vm.status = 'An error occurred.' + error;
-        vm.punchline = 'An error occurred.' + error;
+        vm.pun = 'An error occurred. ' + error;
       });
     },
+    generator() {
+        this.mycolor = '#'+(Math.random()*0xFFFFFF<<0).toString(16)
+        document.body.style.background = this.mycolor
+      },
     newPun() {
       this.loadJoke()
+      this.generator()
       return this.show = false;
-    }
+    },
   }
 }
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
-h3 {
-  margin: 40px 0 0;
-}
-ul {
-  list-style-type: none;
-  padding: 0;
-}
-li {
-  display: inline-block;
-  margin: 0 10px;
-}
-a {
-  color: #42b983;
-}
+
+
 </style>
+
+
+<!--
+Notes
+* connect pun api or find new pun api
+* style
+* animate
+* push live to tonofpun.com
+
+-->
