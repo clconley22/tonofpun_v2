@@ -1,6 +1,8 @@
 <template>
   <div class="hello">
-     <h1>{{ pun }}</h1>
+    <div class="punContainer">
+      <h1>{{ pun }}</h1>
+    </div>
      <!-- <sui-button @click="show = !show">Show me the answer</sui-button> -->
      <!-- <h2 v-if="show"> {{ punchline }} </h2> -->
      <div>
@@ -33,9 +35,9 @@ export default {
     loadJoke() {
       this.pun = 'Loading...';
       var vm = this;
-      axios.get('https://getpuns.herokuapp.com/api/random')
+      axios.get('https://cors-anywhere.herokuapp.com/https://getpuns.herokuapp.com/api/random')
       .then(response => {
-        vm.pun = response.data
+        vm.pun = response.data.Pun;
       })
       .catch(error => {
         vm.pun = 'An error occurred. ' + error;
@@ -57,7 +59,14 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
 
+.punContainer {
+  margin: 0 auto;
+  width: 60%;
+}
 
+.ui.animated.button{
+  margin-top:20px;
+}
 </style>
 
 
