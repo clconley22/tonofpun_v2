@@ -1,7 +1,7 @@
 
 .hello h1, .hello h2 {
 font-family: 'Titan One', cursive;
-font-size: 50px;
+font-size: 4em;
 color: white;
 text-shadow: 1px 1px 2px black;
 }
@@ -50,4 +50,13 @@ sui-button#change {
 body, sui-button#change {
   -webkit-transition: all 0.4s ease-in-out;
   transition: all 0.4s ease-in-out;
+}
+
+@media screen and (max-width: 600px) {
+  .hello h1, .hello h2 {
+  font-family: 'Titan One', cursive;
+  font-size: 2em;
+  color: white;
+  text-shadow: 1px 1px 2px black;
+  }
 }

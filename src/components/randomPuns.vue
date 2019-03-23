@@ -67,6 +67,12 @@ export default {
 .ui.animated.button{
   margin-top:20px;
 }
+
+@media screen and (max-width: 600px) {
+  .punContainer {
+    width: 90%;
+  }
+}
 </style>
 
 
