@@ -1,4 +1,3 @@
-Site live at: https://tonofpun-e829e.firebaseapp.com/
 
 # tonofpun_v2
 
